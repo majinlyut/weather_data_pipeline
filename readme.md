@@ -1,5 +1,8 @@
 # 🚀 Weather data pipeline 
 
+<img width="1536" height="1024" alt="meteo1" src="https://github.com/user-attachments/assets/5168b082-1115-4b26-bb78-2cd0dc9e1fc6" />
+
+
 ## 📌 Objectif
 Ce projet automatise la migration et l’intégration de données météo provenant de plusieurs sources (JSON, Excel) vers une base **MongoDB Replica Set** hébergée sur AWS ECS.  
 Les données sont normalisées, converties dans les bonnes unités et validées via des tests automatisés.
@@ -65,6 +68,10 @@ Airbyte est ensuite disponible sur [http://localhost:8000](http://localhost:8000
 ---
 
 ### 2. Créer les **connecteurs source**
+
+<img width="286" height="233" alt="image" src="https://github.com/user-attachments/assets/8279f9f9-5d24-4ba6-ae61-076ca04d8ffe" />
+
+
 Dans l’interface Airbyte :
 - Source **HTTP/CSV/JSON** → pour le fichier JSON Infoclimat  
 - Source **HTTP/Excel** → pour le fichier XLS d’Ichtegem  
@@ -85,6 +92,10 @@ Dans l’interface Airbyte :
 ---
 
 ### 4. Synchroniser les données
+
+<img width="872" height="120" alt="image" src="https://github.com/user-attachments/assets/a918de9f-2afa-4704-827f-e777c18f7e23" />
+
+
 Lancer une **Sync** dans Airbyte et vérifier que les fichiers apparaissent bien dans S3 :  
 ```
 s3://weather-data-pipeline/infoclimat/
@@ -92,16 +103,10 @@ s3://weather-data-pipeline/ichtegem/
 s3://weather-data-pipeline/lamadeleine/
 ```
 
----
-
-### 5. Lancer la migration
-Une fois les données présentes dans S3, exécutez la **Migration Task ECS** (voir section Déploiement ECS) qui :  
-- Télécharge les fichiers depuis S3  
-- Nettoie et transforme les données  
-- Insère dans MongoDB  
-- Valide avec Pytest  
 
 ---
+
+
 
 ## 🔧 Pré-requis
 
@@ -315,21 +320,5 @@ Exemple :
 
 ## 📊 Schéma d’architecture
 
-```mermaid
-flowchart TB
-  subgraph ECS Cluster
-    M1["Mongo1 Task (27017)"]
-    M2["Mongo2 Task (27017)"]
-    MA["Mongo Arbiter Task (27018)"]
-    MIG["Migration Task (scripts + tests)"]
-  end
+<img width="1437" height="637" alt="Archi_meteo" src="https://github.com/user-attachments/assets/753ecfd4-6a6c-4d61-9468-f0be04975751" />
 
-  Airbyte["Airbyte Sources"] --> S3["AWS S3 (weather-data-pipeline)"]
-  S3 --> MIG
-  MIG --> M1
-  MIG --> M2
-  MIG --> MA
-  M1 <--> M2
-  M1 <--> MA
-  M2 <--> MA
-```
