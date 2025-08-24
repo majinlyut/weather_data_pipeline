@@ -1,0 +1,15 @@
+a
+a.py
+keyprojet7.pem
+keyprojet7.ppk
+NAKATA_Lyuta_1_pres_042025.pptx
+output_clean.csv
+suivi.xlsx
+df_hourly.csv
+crud.py
+docker-compose.yml
+Construisez_et_testez_une_infrastructure_de_données_NAKATA_Lyuta.zip
+requirements.txt
+data/
+__pycache__/
+schema.json

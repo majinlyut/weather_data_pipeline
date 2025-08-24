@@ -1,0 +1,28 @@
+{
+  "family": "migration-task",
+  "networkMode": "bridge",
+  "requiresCompatibilities": ["EC2"],
+  "cpu": "256",
+  "memory": "512",
+  "containerDefinitions": [
+    {
+      "name": "migration",
+      "image": "lyut78/migration:latest",
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/migration-task",
+          "awslogs-region": "eu-west-3",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "environment": [
+        {
+          "name": "MONGO_URI",
+          "value": "mongodb://mongo1.mongo.local:27017,mongo2.mongo.local:27017/?replicaSet=rs0"
+        }
+      ]
+    }
+  ]
+}

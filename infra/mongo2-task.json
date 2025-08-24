@@ -1,0 +1,52 @@
+{
+    "family": "mongo2-task",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": ["EC2"],
+    "containerDefinitions": [
+      {
+        "name": "mongo2",
+        "image": "mongo:latest",
+        "cpu": 0,
+        "memory": 512,
+        "portMappings": [
+          {
+            "containerPort": 27017,
+            "hostPort": 27017,
+            "protocol": "tcp"
+          }
+        ],
+        "essential": true,
+        "command": [
+          "mongod",
+          "--replSet",
+          "rs0",
+          "--bind_ip_all",
+          "--port",
+          "27017"
+        ],
+        "mountPoints": [
+          {
+            "sourceVolume": "mongo2_data",
+            "containerPath": "/data/db"
+          }
+        ],
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "/ecs/mongodb",
+            "awslogs-region": "eu-west-3",
+            "awslogs-stream-prefix": "mongo2"
+          }
+        }
+      }
+    ],
+    "volumes": [
+      {
+        "name": "mongo2_data",
+        "host": {
+          "sourcePath": "/ecs/mongo2_data"
+        }
+      }
+    ]
+  }
+  

@@ -1,0 +1,19 @@
+{
+  "family": "mongo-arbiter-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["EC2"],
+  "containerDefinitions": [
+    {
+      "name": "mongo-arbiter",
+      "image": "mongo:latest",
+      "memory": 256,
+      "portMappings": [{ "containerPort": 27018 }],
+      "command": [
+        "mongod",
+        "--replSet", "rs0",
+        "--bind_ip_all",
+        "--port", "27018"
+      ]
+    }
+  ]
+}
