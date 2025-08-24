@@ -31,11 +31,12 @@ Les données sont normalisées, converties dans les bonnes unités et validées 
 │   ├── scriptxls1.py         # Ingestion XLS (Ichtegem, BE)
 │   ├── scriptxls2.py         # Ingestion XLS (La Madeleine, FR)
 │   └── test_migration.py     # Tests Pytest (validation MongoDB)
-└── infra/
-    ├── mongo1-task.json
-    ├── mongo2-task.json
-    ├── mongo-arbiter-task.json
-    └── migration-task.json
+├── infra/
+│    ├── mongo1-task.json
+│    ├── mongo2-task.json
+│    ├── mongo-arbiter-task.json
+│    └── migration-task.json
+└── test_mongo.py
 ```
 
 ---
